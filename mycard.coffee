@@ -1,7 +1,7 @@
 @mycard = {}
-@mycard.room_name = (name, password, pvp = false, rule = 0, mode = 0, start_lp = 8000, start_hand = 5, draw_count = 1) ->
+@mycard.room_name = (name, password, pvp = false, rule = 0, mode = 0, start_lp = 8000, start_hand = 5, draw_count = 1, enable_priority = false, no_check_deck = false, no_shuffle_deck = false) ->
   if rule != 0 or start_lp != 8000 or start_hand != 5 or draw_count != 1
-    result = "#{rule}#{mode}FFF#{start_lp},#{start_hand},#{draw_count},"
+    result = "#{rule}#{mode}#{if enable_priority then 'T' else 'F'}#{if no_check_deck then 'T' else 'F'}#{if no_shuffle_deck then 'T' else 'F'}#{start_lp},#{start_hand},#{draw_count},"
   else if mode == 2
     result = "T#"
   else if pvp and mode == 1
