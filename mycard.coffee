@@ -1,3 +1,27 @@
+mycard =
+  card_usages_key: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_="
+  decode_card_usages: (encoded)->
+    result = []
+    return result if !encoded
+    for i in [0...encoded.length] by 5
+      decoded = 0
+      for char in encoded.substr(i, 5)
+        decoded = (decoded << 6) + @card_usages_key.indexOf(char)
+      side = decoded >> 29
+      count = decoded >> 27 & 0x3
+      card_id = decoded & 0x07FFFFFF
+      result.push {card_id: card_id, side: side, count: count}
+    result
+
+module.exports = mycard
+
+
+
+
+
+
+
+#old
 @mycard = {}
 @mycard.room_name = (name, password, pvp = false, rule = 0, mode = 0, start_lp = 8000, start_hand = 5, draw_count = 1, enable_priority = false, no_check_deck = false, no_shuffle_deck = false) ->
   if rule != 0 or start_lp != 8000 or start_hand != 5 or draw_count != 1
