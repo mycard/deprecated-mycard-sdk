@@ -29,7 +29,7 @@
       return result;
     },
     card_usages_equal: function(card_usages1, card_usages2) {
-      var cards_usage, count, main, side, _i, _j, _k, _l, _len, _len1, _len2, _len3;
+      var card_id, cards_usage, count, main, side, _i, _j, _len, _len1;
       main = {};
       side = {};
       for (_i = 0, _len = card_usages1.length; _i < _len; _i++) {
@@ -64,14 +64,14 @@
           }
         }
       }
-      for (_k = 0, _len2 = main.length; _k < _len2; _k++) {
-        count = main[_k];
+      for (card_id in main) {
+        count = main[card_id];
         if (count) {
           return false;
         }
       }
-      for (_l = 0, _len3 = side.length; _l < _len3; _l++) {
-        count = side[_l];
+      for (card_id in side) {
+        count = side[card_id];
         if (count) {
           return false;
         }

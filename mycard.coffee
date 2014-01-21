@@ -37,9 +37,10 @@ mycard =
           main[cards_usage.card_id] -= cards_usage.count
         else
           return false
-    for count in main
+
+    for card_id, count of main
       return false if count
-    for count in side
+    for card_id, count of side
       return false if count
     true
 

@@ -1,6 +1,6 @@
 {
   "name": "mycard-sdk",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "javascript utilities for mycard",
   "main": "mycard.js",
   "repository": {
