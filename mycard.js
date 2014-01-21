@@ -4,7 +4,7 @@
 
   mycard = {
     card_usages_key: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_=",
-    decode_card_usages: function(encoded) {
+    card_usages_decode: function(encoded) {
       var card_id, char, count, decoded, i, result, side, _i, _j, _len, _ref, _ref1;
       result = [];
       if (!encoded) {
@@ -27,6 +27,56 @@
         });
       }
       return result;
+    },
+    card_usages_equal: function(card_usages1, card_usages2) {
+      var cards_usage, count, main, side, _i, _j, _k, _l, _len, _len1, _len2, _len3;
+      main = {};
+      side = {};
+      for (_i = 0, _len = card_usages1.length; _i < _len; _i++) {
+        cards_usage = card_usages1[_i];
+        if (cards_usage.side) {
+          if (side[cards_usage.card_id]) {
+            side[cards_usage.card_id] += cards_usage.count;
+          } else {
+            side[cards_usage.card_id] = cards_usage.count;
+          }
+        } else {
+          if (main[cards_usage.card_id]) {
+            main[cards_usage.card_id] += cards_usage.count;
+          } else {
+            main[cards_usage.card_id] = cards_usage.count;
+          }
+        }
+      }
+      for (_j = 0, _len1 = card_usages2.length; _j < _len1; _j++) {
+        cards_usage = card_usages2[_j];
+        if (cards_usage.side) {
+          if (side[cards_usage.card_id]) {
+            side[cards_usage.card_id] -= cards_usage.count;
+          } else {
+            return false;
+          }
+        } else {
+          if (main[cards_usage.card_id]) {
+            main[cards_usage.card_id] -= cards_usage.count;
+          } else {
+            return false;
+          }
+        }
+      }
+      for (_k = 0, _len2 = main.length; _k < _len2; _k++) {
+        count = main[_k];
+        if (count) {
+          return false;
+        }
+      }
+      for (_l = 0, _len3 = side.length; _l < _len3; _l++) {
+        count = side[_l];
+        if (count) {
+          return false;
+        }
+      }
+      return true;
     }
   };
 

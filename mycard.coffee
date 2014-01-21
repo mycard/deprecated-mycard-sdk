@@ -1,6 +1,6 @@
 mycard =
   card_usages_key: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_="
-  decode_card_usages: (encoded)->
+  card_usages_decode: (encoded)->
     result = []
     return result if !encoded
     for i in [0...encoded.length] by 5
@@ -12,6 +12,37 @@ mycard =
       card_id = decoded & 0x07FFFFFF
       result.push {card_id: card_id, side: side, count: count}
     result
+  card_usages_equal: (card_usages1, card_usages2)->
+    main = {}
+    side = {}
+    for cards_usage in card_usages1
+      if cards_usage.side
+        if side[cards_usage.card_id]
+          side[cards_usage.card_id] += cards_usage.count
+        else
+          side[cards_usage.card_id] = cards_usage.count
+      else
+        if main[cards_usage.card_id]
+          main[cards_usage.card_id] += cards_usage.count
+        else
+          main[cards_usage.card_id] = cards_usage.count
+    for cards_usage in card_usages2
+      if cards_usage.side
+        if side[cards_usage.card_id]
+          side[cards_usage.card_id] -= cards_usage.count
+        else
+          return false
+      else
+        if main[cards_usage.card_id]
+          main[cards_usage.card_id] -= cards_usage.count
+        else
+          return false
+    for count in main
+      return false if count
+    for count in side
+      return false if count
+    true
+
 
 module.exports = mycard
 
