@@ -17,7 +17,7 @@
           char = _ref1[_j];
           decoded = (decoded << 6) + this.card_usages_key.indexOf(char);
         }
-        side = decoded >> 29;
+        side = !!(decoded >> 29);
         count = decoded >> 27 & 0x3;
         card_id = decoded & 0x07FFFFFF;
         result.push({

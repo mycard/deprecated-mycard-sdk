@@ -7,7 +7,7 @@ mycard =
       decoded = 0
       for char in encoded.substr(i, 5)
         decoded = (decoded << 6) + @card_usages_key.indexOf(char)
-      side = decoded >> 29
+      side = !!(decoded >> 29)
       count = decoded >> 27 & 0x3
       card_id = decoded & 0x07FFFFFF
       result.push {card_id: card_id, side: side, count: count}
